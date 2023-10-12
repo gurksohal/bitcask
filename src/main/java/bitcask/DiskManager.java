@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class DiskManager {
-    private static final int FILE_SIZE_THRESHOLD = 16_000;
+    private static final int FILE_SIZE_THRESHOLD = 4_000_000; //4MB
     private final String dbDir;
     private File openFile;
 
@@ -37,7 +37,7 @@ public class DiskManager {
             out.write(ByteUtils.intToBytes(outputStream.size()));
             out.write(outputStream.toByteArray());
             out.flush();
-            out.getFD().sync();
+            // out.getFD().sync();
         }
 
         return new String[] {openFile.getAbsolutePath(), String.valueOf(valueOffset)};

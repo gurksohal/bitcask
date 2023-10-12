@@ -22,7 +22,6 @@ public class BitcaskDB {
 
     public String get(String key) throws IOException {
         if (!keyDir.containsKey(key)) {
-            System.out.println(key + " is not in db");
             return null;
         }
 
@@ -40,7 +39,6 @@ public class BitcaskDB {
 
     public void delete(String key) throws IOException {
         if (!keyDir.containsKey(key)) {
-            System.out.println(key + " is not in db");
             return;
         }
 
@@ -63,7 +61,8 @@ public class BitcaskDB {
     private void processFile(File file) throws IOException {
         byte[] bytes = new byte[(int) file.length()];
         try (FileInputStream inputStream = new FileInputStream(file)) {
-            inputStream.read(bytes);
+            int res = inputStream.read(bytes);
+            if (res == -1) return;
         }
 
         int currOffset = 0;
